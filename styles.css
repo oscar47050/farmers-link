@@ -1,0 +1,551 @@
+/* Karenga AgriMarket Stylesheet - Premium Marketplace Design */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --emerald-950: #022c22;
+  --emerald-900: #064e3b;
+  --emerald-800: #065f46;
+  --emerald-700: #047857;
+  --emerald-600: #059669;
+  --emerald-100: #d1fae5;
+  --emerald-50: #ecfdf5;
+
+  --amber-900: #78350f;
+  --amber-700: #b45309;
+  --amber-600: #d97706;
+  --amber-500: #f59e0b;
+  --amber-400: #fbbf24;
+  --amber-100: #fef3c7;
+
+  --stone-950: #0f172a;
+  --stone-900: #1f2937;
+  --stone-800: #334155;
+  --stone-700: #475569;
+  --stone-600: #64748b;
+  --stone-500: #7b8794;
+  --stone-300: #d8d6d1;
+  --stone-200: #e7e5e4;
+  --stone-100: #f4f4f5;
+  --stone-50: #fafaf9;
+
+  --white: #ffffff;
+  --shadow-soft: 0 10px 30px rgba(15, 23, 42, 0.08);
+  --shadow-card: 0 20px 45px -24px rgba(15, 23, 42, 0.25);
+  --radius-xl: 24px;
+  --radius-lg: 18px;
+  --radius-md: 14px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background:
+    radial-gradient(circle at top left, rgba(16, 185, 129, 0.08), transparent 22%),
+    linear-gradient(180deg, #f8fafc 0%, #f5f5f4 100%);
+  color: var(--stone-800);
+  min-height: 100vh;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  letter-spacing: -0.03em;
+  margin: 0;
+}
+
+/* Buttons and links */
+button, a {
+  transition: all 0.2s ease;
+}
+
+button:hover, a:hover {
+  transform: translateY(-1px);
+}
+
+/* Global card styling */
+.rounded-2xl {
+  border-radius: 22px;
+}
+
+.rounded-xl {
+  border-radius: 16px;
+}
+
+/* Top announcement bar */
+div.bg-amber-700.text-amber-50 {
+  background: linear-gradient(90deg, #b45309 0%, #d97706 100%);
+  box-shadow: inset 0 -1px 0 rgba(255,255,255,0.08);
+}
+
+/* Header / navigation */
+header {
+  background: linear-gradient(135deg, #022c22 0%, #064e3b 35%, #115e59 100%);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 12px 28px rgba(2, 44, 34, 0.18);
+}
+
+header .nav-tab {
+  border: 1px solid transparent;
+}
+
+header .nav-tab:hover {
+  border-color: rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.06) !important;
+}
+
+header .nav-tab.bg-emerald-800 {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(250, 204, 21, 0.14)) !important;
+  border-color: rgba(251, 191, 36, 0.24);
+}
+
+/* Main hero callout */
+#tab-marketplace .bg-gradient-to-r {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: var(--shadow-card);
+}
+
+#tab-marketplace .bg-gradient-to-r::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(120deg, rgba(255,255,255,0.07), transparent 45%),
+    radial-gradient(circle at top right, rgba(251,191,36,0.18), transparent 30%);
+  pointer-events: none;
+}
+
+#tab-marketplace h2 {
+  text-shadow: 0 4px 18px rgba(0,0,0,0.18);
+}
+
+/* Quick stat cards */
+.grid.grid-cols-2 > div,
+.grid.grid-cols-4 > div {
+  background: rgba(255,255,255,0.96);
+  border: 1px solid rgba(216, 214, 209, 0.9);
+  box-shadow: var(--shadow-soft);
+  border-radius: 18px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.grid.grid-cols-2 > div:hover,
+.grid.grid-cols-4 > div:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 18px 32px -18px rgba(15, 23, 42, 0.2);
+}
+
+/* Search/filter section */
+#filter-section {
+  background: rgba(255,255,255,0.9);
+  border: 1px solid rgba(216, 214, 209, 0.9);
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(8px);
+}
+
+#filter-section input,
+#filter-section select,
+#form-post-produce input,
+#form-post-produce select,
+#form-post-produce textarea,
+#form-post-request input,
+#form-post-request select,
+#form-post-request textarea {
+  background: #ffffff !important;
+  border: 1px solid rgba(216,214,209,0.95) !important;
+  box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.02);
+  transition: all 0.2s ease;
+}
+
+#filter-section input:focus,
+#filter-section select:focus,
+#form-post-produce input:focus,
+#form-post-produce select:focus,
+#form-post-produce textarea:focus,
+#form-post-request input:focus,
+#form-post-request select:focus,
+#form-post-request textarea:focus {
+  border-color: rgba(6, 95, 70, 0.5) !important;
+  box-shadow: 0 0 0 4px rgba(6, 95, 70, 0.08) !important;
+  outline: none;
+}
+
+.category-pill {
+  border: 1px solid transparent;
+  background: #f5f5f4;
+  color: #334155;
+  box-shadow: none;
+}
+
+.category-pill:hover {
+  background: #e7e5e4;
+  border-color: rgba(6, 95, 70, 0.08);
+}
+
+.category-pill.active-category {
+  background: linear-gradient(135deg, #065f46 0%, #0f766e 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 10px 20px -12px rgba(6, 95, 70, 0.8);
+}
+
+/* Produce cards */
+.produce-card {
+  background: rgba(255,255,255,0.97);
+  border: 1px solid rgba(216, 214, 209, 0.9);
+  border-radius: 22px;
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.produce-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 24px 48px -22px rgba(15, 23, 42, 0.25);
+}
+
+.produce-card .bg-stone-50 {
+  background: linear-gradient(180deg, #fafaf9 0%, #f5f5f4 100%);
+}
+
+.produce-card .bg-emerald-100 {
+  background: linear-gradient(135deg, #d1fae5 0%, #bbf7d0 100%);
+}
+
+/* Buyer request cards */
+#buyer-requests-grid > div {
+  background: rgba(255,255,255,0.97);
+  border: 1px solid rgba(216, 214, 209, 0.9);
+  border-radius: 20px;
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#buyer-requests-grid > div:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 42px -24px rgba(15, 23, 42, 0.2);
+}
+
+/* Price table */
+#price-bulletin-tbody tr {
+  transition: background 0.2s ease;
+}
+
+#price-bulletin-tbody tr:hover {
+  background: rgba(6, 95, 70, 0.03);
+}
+
+thead th {
+  background: linear-gradient(180deg, #f8fafc 0%, #f3f4f6 100%);
+  border-bottom: 1px solid rgba(216,214,209,0.9);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Modal styling */
+#post-produce-modal > div,
+#post-request-modal > div,
+#contact-modal > div {
+  background: rgba(255,255,255,0.98);
+  border: 1px solid rgba(216,214,209,0.85);
+  box-shadow: 0 30px 70px -28px rgba(15, 23, 42, 0.4);
+  border-radius: 24px;
+  animation: modalIn 0.2s ease;
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Toasts */
+#toast-container > div {
+  box-shadow: 0 20px 30px -18px rgba(15,23,42,0.45);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+/* Footer */
+footer {
+  background: linear-gradient(180deg, #022c22 0%, #041d1a 100%);
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+/* Mobile nav */
+.mobile-nav-btn {
+  transition: all 0.2s ease;
+}
+
+.mobile-nav-btn:hover {
+  transform: translateY(-1px);
+}
+
+.mobile-nav-active {
+  color: #065f46 !important;
+}
+
+.mobile-nav-active i {
+  color: #047857 !important;
+}
+
+/* Empty-state card */
+#produce-empty-state {
+  border: 1px solid rgba(216,214,209,0.9);
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  box-shadow: var(--shadow-soft);
+}
+
+/* Small extra polish */
+button[type="submit"],
+button[class*="bg-emerald"],
+button[class*="bg-amber"],
+a[class*="bg-emerald"],
+a[class*="bg-amber"] {
+  box-shadow: 0 12px 20px -14px rgba(15,23,42,0.35);
+}
+
+@media (max-width: 640px) {
+  .produce-card .flex.items-center.gap-2 a,
+  .produce-card button,
+  .bg-emerald-800,
+  .bg-amber-500,
+  .bg-amber-600,
+  .bg-emerald-700 {
+    min-height: 42px;
+  }
+
+  .grid.grid-cols-2 > div,
+  .grid.grid-cols-4 > div {
+    border-radius: 16px;
+  }
+}
+
+/* Animations & utilities */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-in {
+  animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Scrollbar utilities */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Badges */
+.badge-karamoja {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  color: #1c1917;
+}
+
+/* Social & Action Button Enhancements */
+.btn-whatsapp {
+  background-color: #25D366 !important;
+  color: #ffffff !important;
+  border-color: #1ebd59 !important;
+}
+.btn-whatsapp:hover {
+  background-color: #1ebd59 !important;
+  transform: translateY(-1px);
+}
+
+.btn-facebook {
+  background-color: #1877F2 !important;
+  color: #ffffff !important;
+  border-color: #0c63d4 !important;
+}
+.btn-facebook:hover {
+  background-color: #0c63d4 !important;
+  transform: translateY(-1px);
+}
+
+.btn-call {
+  background: linear-gradient(135deg, #047857 0%, #065f46 100%) !important;
+  color: #ffffff !important;
+}
+.btn-call:hover {
+  background: linear-gradient(135deg, #065f46 0%, #064e3b 100%) !important;
+  transform: translateY(-1px);
+}
+
+/* Barcode & Bag Tag Styling */
+.badge-barcode {
+  font-family: 'Courier New', Courier, monospace;
+  letter-spacing: 0.08em;
+  background: #f1f5f9;
+  color: #0f172a;
+  border: 1px dashed #94a3b8;
+}
+
+.produce-bag-tag {
+  background: #ffffff;
+  border: 2px dashed #065f46;
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.produce-bag-tag::before {
+  content: "OFFICIAL KARENGA AGRI-TAG";
+  position: absolute;
+  top: 6px;
+  right: -32px;
+  background: #065f46;
+  color: #ffffff;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  padding: 2px 35px;
+  transform: rotate(45deg);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+#barcode-svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+#qrcode-container img,
+#qrcode-container canvas {
+  margin: 0 auto;
+  border-radius: 8px;
+  border: 2px solid #e2e8f0;
+  padding: 4px;
+  background: #ffffff;
+}
+
+/* Print Layout for Produce Bag Barcode Labels */
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #printable-bag-tag,
+  #printable-bag-tag * {
+    visibility: visible;
+  }
+  #printable-bag-tag {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    padding: 20px;
+    border: 2px solid #000000;
+  }
+}
+
+/* Alert Engine & Simulation Center Styles */
+.pulse-badge {
+  box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7);
+  animation: pulseAmber 2s infinite;
+}
+
+@keyframes pulseAmber {
+  0% {
+    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(245, 158, 11, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(245, 158, 11, 0);
+  }
+}
+
+.simulated-phone {
+  background: #111827;
+  border: 8px solid #1f2937;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+}
+
+.wa-bubble {
+  background-color: #dcf8c6;
+  color: #111827;
+  border-radius: 12px 12px 2px 12px;
+  padding: 10px 14px;
+  max-width: 90%;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+  position: relative;
+}
+
+.wa-bubble::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: -6px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 6px 0 0 6px;
+  border-color: transparent transparent transparent #dcf8c6;
+}
+
+.sms-bubble {
+  background-color: #f3f4f6;
+  color: #1f2937;
+  border-radius: 12px 12px 12px 2px;
+  padding: 10px 14px;
+  max-width: 90%;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  border: 1px solid #e5e7eb;
+}
+
+.alert-feed-item {
+  transition: all 0.2s ease;
+  border-left: 4px solid #059669;
+}
+.alert-feed-item:hover {
+  transform: translateX(4px);
+  background: #f8fafc;
+}
+
+

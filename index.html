@@ -1,0 +1,1186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Karenga AgriMarket | Link Farmers to Buyers in Karamoja</title>
+  <meta name="description" content="Direct online selling platform connecting farmers in Karenga District, Karamoja with buyers for sorghum, millet, simsim, livestock, honey, and fresh produce." />
+  <!-- Tailwind CSS CDN for instant modern responsive UI -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Barcode & QR Code Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/jsbarcode@3.11.5/dist/JsBarcode.all.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+</head>
+<body class="bg-stone-50 text-stone-800 font-sans min-h-screen flex flex-col">
+
+  <!-- TOP ANNOUNCEMENT BAR -->
+  <div class="bg-amber-700 text-amber-50 text-xs py-2 px-4 text-center font-medium flex flex-wrap items-center justify-between gap-2 max-w-7xl mx-auto">
+    <div class="flex items-center gap-2 mx-auto sm:mx-0">
+      <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+      <span>🌾 <strong>Karenga District Farmers Link:</strong> Kapedo, Lobalangit, Lokori, Kawalakol, Sangar & Karenga TC.</span>
+    </div>
+    <div class="flex items-center gap-3 mx-auto sm:mx-0 text-xs">
+      <a href="tel:0772849102" class="hover:text-amber-200 flex items-center gap-1 font-bold text-amber-100 transition">
+        <i class="fa-solid fa-phone text-xs"></i> <span>Call: 0772 849 102</span>
+      </a>
+      <span class="text-amber-400/60">|</span>
+      <a href="https://wa.me/256772849102?text=Hello%20Karenga%20AgriMarket%2C%20I%20am%20interested%20in%20produce%20listings." target="_blank" class="hover:text-emerald-200 flex items-center gap-1 font-bold text-emerald-100 transition">
+        <i class="fa-brands fa-whatsapp text-sm text-emerald-300"></i> <span>WhatsApp Hub</span>
+      </a>
+      <span class="text-amber-400/60">|</span>
+      <a href="https://facebook.com" target="_blank" class="hover:text-blue-200 flex items-center gap-1 font-bold text-blue-100 transition">
+        <i class="fa-brands fa-facebook text-sm text-blue-300"></i> <span>Facebook Group</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- NAVIGATION HEADER -->
+  <header class="bg-emerald-900 text-white shadow-md sticky top-0 z-40">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between">
+      
+      <!-- Brand & District Badge -->
+      <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('marketplace')">
+        <div class="w-10 h-10 rounded-xl bg-amber-500 flex items-center justify-center text-emerald-950 font-black text-2xl shadow-inner">
+          <i class="fa-solid fa-wheat-awn"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="text-xl sm:text-2xl font-black tracking-tight text-amber-400">Karenga<span class="text-white">AgriMarket</span></h1>
+            <span class="bg-emerald-700/80 text-emerald-100 text-[10px] px-2 py-0.5 rounded-full font-semibold uppercase tracking-wider hidden sm:inline-block border border-emerald-600">Karamoja</span>
+          </div>
+          <p class="text-xs text-emerald-200 hidden sm:block">Empowering Farmers • Connecting Bulk & Retail Buyers</p>
+        </div>
+      </div>
+
+      <!-- Desktop Nav Links -->
+      <nav class="hidden md:flex items-center space-x-1 lg:space-x-2">
+        <button onclick="switchTab('marketplace')" id="nav-btn-marketplace" class="nav-tab px-3.5 py-2 rounded-lg text-sm font-semibold transition flex items-center gap-2 bg-emerald-800 text-amber-300">
+          <i class="fa-solid fa-store"></i> Produce Market
+        </button>
+        <button onclick="switchTab('buyer-requests')" id="nav-btn-buyer-requests" class="nav-tab px-3.5 py-2 rounded-lg text-sm font-semibold transition flex items-center gap-2 hover:bg-emerald-800/60 text-emerald-100">
+          <i class="fa-solid fa-bullhorn"></i> Buyer Requests
+        </button>
+        <button onclick="switchTab('price-bulletin')" id="nav-btn-price-bulletin" class="nav-tab px-3.5 py-2 rounded-lg text-sm font-semibold transition flex items-center gap-2 hover:bg-emerald-800/60 text-emerald-100">
+          <i class="fa-solid fa-chart-line"></i> Price Index (UGX)
+        </button>
+        <button onclick="switchTab('about')" id="nav-btn-about" class="nav-tab px-3.5 py-2 rounded-lg text-sm font-semibold transition flex items-center gap-2 hover:bg-emerald-800/60 text-emerald-100">
+          <i class="fa-solid fa-circle-info"></i> About
+        </button>
+      </nav>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center space-x-2 sm:space-x-2">
+        <button onclick="openAlertCenterModal()" class="relative bg-emerald-800/90 hover:bg-emerald-700 text-amber-300 font-semibold px-3 py-2 rounded-lg text-xs sm:text-sm border border-emerald-600 flex items-center gap-1.5 transition" title="Instant Alerts & WhatsApp/SMS Dispatch Simulator">
+          <i class="fa-solid fa-bell text-sm"></i>
+          <span class="hidden sm:inline">Alerts</span>
+          <span id="header-alert-badge" class="pulse-badge absolute -top-1.5 -right-1.5 bg-amber-500 text-emerald-950 font-black text-[10px] w-5 h-5 rounded-full flex items-center justify-center border-2 border-emerald-900 shadow">3</span>
+        </button>
+        <button onclick="openScanModal()" class="bg-emerald-800/90 hover:bg-emerald-700 text-emerald-100 font-semibold px-3 py-2 rounded-lg text-xs sm:text-sm border border-emerald-600 flex items-center gap-1.5 transition" title="Scan Produce Bag Barcode or QR Code">
+          <i class="fa-solid fa-barcode text-amber-300 text-sm"></i>
+          <span class="hidden sm:inline">Scan Tag</span>
+        </button>
+        <button onclick="openModal('post-produce-modal')" class="bg-amber-500 hover:bg-amber-400 text-emerald-950 font-bold px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm flex items-center gap-1.5 shadow-lg transition transform hover:-translate-y-0.5 active:translate-y-0">
+          <i class="fa-solid fa-plus-circle"></i>
+          <span>Sell Produce</span>
+        </button>
+        <button onclick="openModal('post-request-modal')" class="bg-emerald-800 hover:bg-emerald-700 text-white font-semibold px-3 py-2 rounded-lg text-xs sm:text-sm border border-emerald-600 hidden sm:flex items-center gap-2">
+          <i class="fa-solid fa-hand-holding-dollar"></i>
+          <span>Buyer Order</span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- MOBILE BOTTOM BAR (Optimized for field phones) -->
+  <div class="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-stone-200 z-40 flex justify-around items-center py-2 px-1 shadow-2xl">
+    <button onclick="switchTab('marketplace')" class="mobile-nav-btn flex flex-col items-center text-xs font-semibold text-emerald-800 py-1" id="m-nav-marketplace">
+      <i class="fa-solid fa-store text-lg mb-0.5"></i>
+      <span>Market</span>
+    </button>
+    <button onclick="openAlertCenterModal()" class="mobile-nav-btn flex flex-col items-center text-xs font-semibold text-stone-500 py-1 relative">
+      <i class="fa-solid fa-bell text-lg mb-0.5 text-amber-600"></i>
+      <span class="absolute top-1 right-2 w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+      <span>Alerts</span>
+    </button>
+    <button onclick="openModal('post-produce-modal')" class="flex flex-col items-center text-xs font-bold text-emerald-950 bg-amber-400 rounded-full px-3.5 py-1.5 shadow-md -mt-5">
+      <i class="fa-solid fa-plus text-base"></i>
+      <span>Sell</span>
+    </button>
+    <button onclick="openScanModal()" class="mobile-nav-btn flex flex-col items-center text-xs font-semibold text-stone-500 py-1">
+      <i class="fa-solid fa-barcode text-lg mb-0.5"></i>
+      <span>Scan</span>
+    </button>
+    <button onclick="switchTab('buyer-requests')" class="mobile-nav-btn flex flex-col items-center text-xs font-semibold text-stone-500 py-1" id="m-nav-buyer-requests">
+      <i class="fa-solid fa-bullhorn text-lg mb-0.5"></i>
+      <span>Requests</span>
+    </button>
+  </div>
+
+  <!-- MAIN CONTAINER -->
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 pb-24 md:pb-12">
+
+    <!-- ========================================== -->
+    <!-- TAB 1: PRODUCE MARKETPLACE (Default View) -->
+    <!-- ========================================== -->
+    <section id="tab-marketplace" class="tab-content space-y-6">
+
+      <!-- Hero Banner & Value Proposition -->
+      <div class="relative bg-gradient-to-r from-emerald-900 via-emerald-800 to-amber-900 text-white rounded-2xl p-6 sm:p-8 shadow-xl overflow-hidden">
+        <div class="absolute -right-10 -bottom-10 opacity-10 text-white text-9xl pointer-events-none">
+          <i class="fa-solid fa-wheat-awn"></i>
+        </div>
+        <div class="relative z-10 max-w-3xl">
+          <div class="inline-flex items-center gap-2 bg-amber-500/20 border border-amber-400/40 text-amber-300 text-xs px-3 py-1 rounded-full font-medium mb-3">
+            <i class="fa-solid fa-location-dot"></i> Karenga District Hub (Karamoja, Uganda)
+          </div>
+          <h2 class="text-2xl sm:text-4xl font-extrabold text-white leading-tight mb-2">
+            Buy Direct from Karenga Farmers. Quality Harvest, Fair Prices.
+          </h2>
+          <p class="text-emerald-100 text-sm sm:text-base mb-5 leading-relaxed">
+            Eliminate middlemen! Reach bulk sorghum, millet, simsim, beans, pure wild bush honey, and Karamoja goats directly from farmers and cooperatives in Kapedo, Lobalangit, Karenga TC, Lokori, Sangar, and Kawalakol.
+          </p>
+          <div class="flex flex-wrap gap-3">
+            <button onclick="openModal('post-produce-modal')" class="bg-amber-400 hover:bg-amber-300 text-emerald-950 font-bold px-5 py-2.5 rounded-xl text-sm shadow-md transition flex items-center gap-2">
+              <i class="fa-solid fa-tractor"></i> I Am a Farmer (List My Produce)
+            </button>
+            <button onclick="scrollToFilter()" class="bg-white/10 hover:bg-white/20 text-white border border-white/30 font-semibold px-4 py-2.5 rounded-xl text-sm transition flex items-center gap-2">
+              <i class="fa-solid fa-magnifying-glass"></i> Explore Produce
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Metrics Strip -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+        <div class="bg-white rounded-xl p-3.5 border border-stone-200 shadow-sm flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center text-lg">
+            <i class="fa-solid fa-boxes-stacked"></i>
+          </div>
+          <div>
+            <div class="text-lg sm:text-xl font-black text-stone-800" id="stat-active-listings">24+</div>
+            <div class="text-[11px] text-stone-500 font-medium">Available Batches</div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl p-3.5 border border-stone-200 shadow-sm flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center text-lg">
+            <i class="fa-solid fa-users"></i>
+          </div>
+          <div>
+            <div class="text-lg sm:text-xl font-black text-stone-800" id="stat-farmer-count">65+</div>
+            <div class="text-[11px] text-stone-500 font-medium">Registered Farmers</div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl p-3.5 border border-stone-200 shadow-sm flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-lg bg-teal-100 text-teal-700 flex items-center justify-center text-lg">
+            <i class="fa-solid fa-map-location-dot"></i>
+          </div>
+          <div>
+            <div class="text-lg sm:text-xl font-black text-stone-800">6/6</div>
+            <div class="text-[11px] text-stone-500 font-medium">Karenga Sub-counties</div>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl p-3.5 border border-stone-200 shadow-sm flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-lg bg-indigo-100 text-indigo-700 flex items-center justify-center text-lg">
+            <i class="fa-solid fa-phone-volume"></i>
+          </div>
+          <div>
+            <div class="text-lg sm:text-xl font-black text-stone-800">Direct</div>
+            <div class="text-[11px] text-stone-500 font-medium">Phone & WhatsApp</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEARCH & FILTER TOOLBAR -->
+      <div id="filter-section" class="bg-white rounded-2xl border border-stone-200 p-4 sm:p-5 shadow-sm space-y-4">
+        
+        <!-- Search and Primary Selector -->
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-3">
+          
+          <!-- Search input -->
+          <div class="md:col-span-5 relative">
+            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-stone-400 text-sm"></i>
+            <input 
+              type="text" 
+              id="search-input" 
+              oninput="applyFilters()" 
+              placeholder="Search produce (e.g. Red Sorghum, Simsim, Goats, Honey)..." 
+              class="w-full pl-10 pr-4 py-2.5 bg-stone-50 border border-stone-300 rounded-xl text-sm focus:ring-2 focus:ring-emerald-600 focus:bg-white focus:outline-none transition"
+            />
+          </div>
+
+          <!-- Sub-county Filter -->
+          <div class="md:col-span-4 relative">
+            <i class="fa-solid fa-location-dot absolute left-3.5 top-3.5 text-stone-400 text-sm"></i>
+            <select 
+              id="filter-location" 
+              onchange="applyFilters()" 
+              class="w-full pl-10 pr-8 py-2.5 bg-stone-50 border border-stone-300 rounded-xl text-sm focus:ring-2 focus:ring-emerald-600 focus:bg-white focus:outline-none transition appearance-none cursor-pointer">
+              <option value="all">All Sub-counties (Whole District)</option>
+              <option value="Karenga Town Council">Karenga Town Council</option>
+              <option value="Kapedo Sub-county">Kapedo Sub-county</option>
+              <option value="Lobalangit Sub-county">Lobalangit Sub-county</option>
+              <option value="Lokori Sub-county">Lokori Sub-county</option>
+              <option value="Kawalakol Sub-county">Kawalakol Sub-county</option>
+              <option value="Sangar Sub-county">Sangar Sub-county</option>
+            </select>
+            <i class="fa-solid fa-chevron-down absolute right-3.5 top-3.5 text-stone-400 text-xs pointer-events-none"></i>
+          </div>
+
+          <!-- Sort Order -->
+          <div class="md:col-span-3 relative">
+            <i class="fa-solid fa-arrow-down-short-wide absolute left-3.5 top-3.5 text-stone-400 text-sm"></i>
+            <select 
+              id="filter-sort" 
+              onchange="applyFilters()" 
+              class="w-full pl-10 pr-8 py-2.5 bg-stone-50 border border-stone-300 rounded-xl text-sm focus:ring-2 focus:ring-emerald-600 focus:bg-white focus:outline-none transition appearance-none cursor-pointer">
+              <option value="newest">Sort: Newly Listed</option>
+              <option value="price-low">Price: Low to High</option>
+              <option value="price-high">Price: High to Low</option>
+              <option value="qty-high">Quantity: High to Low</option>
+            </select>
+            <i class="fa-solid fa-chevron-down absolute right-3.5 top-3.5 text-stone-400 text-xs pointer-events-none"></i>
+          </div>
+
+        </div>
+
+        <!-- Category Pill Buttons -->
+        <div class="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none pt-1">
+          <button onclick="setCategoryFilter('all', this)" class="category-pill active-category px-3.5 py-1.5 rounded-full text-xs font-bold transition whitespace-nowrap bg-emerald-800 text-white">
+            <i class="fa-solid fa-layer-group mr-1"></i> All Produce
+          </button>
+          <button onclick="setCategoryFilter('Cereals & Grains', this)" class="category-pill px-3.5 py-1.5 rounded-full text-xs font-semibold transition whitespace-nowrap bg-stone-100 text-stone-700 hover:bg-stone-200">
+            🌾 Cereals (Sorghum/Millet/Maize)
+          </button>
+          <button onclick="setCategoryFilter('Legumes & Oilseeds', this)" class="category-pill px-3.5 py-1.5 rounded-full text-xs font-semibold transition whitespace-nowrap bg-stone-100 text-stone-700 hover:bg-stone-200">
+            🥜 Oilseeds (Simsim/G-Nuts/Beans)
+          </button>
+          <button onclick="setCategoryFilter('Honey & Natural', this)" class="category-pill px-3.5 py-1.5 rounded-full text-xs font-semibold transition whitespace-nowrap bg-stone-100 text-stone-700 hover:bg-stone-200">
+            🍯 Karamoja Pure Honey
+          </button>
+          <button onclick="setCategoryFilter('Livestock & Poultry', this)" class="category-pill px-3.5 py-1.5 rounded-full text-xs font-semibold transition whitespace-nowrap bg-stone-100 text-stone-700 hover:bg-stone-200">
+            🐐 Livestock (Goats/Sheep/Cattle)
+          </button>
+          <button onclick="setCategoryFilter('Tubers & Vegetables', this)" class="category-pill px-3.5 py-1.5 rounded-full text-xs font-semibold transition whitespace-nowrap bg-stone-100 text-stone-700 hover:bg-stone-200">
+            🥬 Tubers & Veggies
+          </button>
+        </div>
+
+      </div>
+
+      <!-- RESULTS HEADER -->
+      <div class="flex items-center justify-between text-xs sm:text-sm text-stone-600 px-1">
+        <div>
+          Showing <span id="produce-count-badge" class="font-bold text-stone-900">0</span> produce batches in Karenga
+        </div>
+        <div class="flex items-center gap-2">
+          <button onclick="resetFilters()" class="text-emerald-700 hover:underline font-semibold flex items-center gap-1">
+            <i class="fa-solid fa-rotate-left"></i> Reset Filters
+          </button>
+        </div>
+      </div>
+
+      <!-- PRODUCE LISTINGS GRID -->
+      <div id="produce-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <!-- Rendered dynamically by JavaScript -->
+      </div>
+
+      <!-- EMPTY STATE -->
+      <div id="produce-empty-state" class="hidden bg-white border border-stone-200 rounded-2xl p-12 text-center max-w-lg mx-auto space-y-4">
+        <div class="w-16 h-16 mx-auto rounded-full bg-stone-100 text-stone-400 flex items-center justify-center text-3xl">
+          <i class="fa-solid fa-seedling"></i>
+        </div>
+        <h3 class="text-lg font-bold text-stone-800">No produce matches your filter</h3>
+        <p class="text-xs text-stone-500">Try changing the sub-county, resetting category filters, or be the first farmer to list this produce in Karenga!</p>
+        <button onclick="resetFilters()" class="bg-emerald-700 hover:bg-emerald-800 text-white font-semibold px-4 py-2 rounded-lg text-xs">
+          View All Available Produce
+        </button>
+      </div>
+
+    </section>
+
+
+    <!-- ========================================== -->
+    <!-- TAB 2: BUYER DEMAND BOARD (Requests) -->
+    <!-- ========================================== -->
+    <section id="tab-buyer-requests" class="tab-content hidden space-y-6">
+      
+      <div class="bg-gradient-to-r from-amber-800 to-amber-950 text-white rounded-2xl p-6 sm:p-8 shadow-lg">
+        <div class="max-w-3xl">
+          <div class="inline-flex items-center gap-2 bg-white/20 text-amber-200 text-xs px-3 py-1 rounded-full font-medium mb-3">
+            <i class="fa-solid fa-handshake"></i> Guaranteed Ready Buyers
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold mb-2">Buyer Demand Board</h2>
+          <p class="text-amber-100 text-sm leading-relaxed mb-4">
+            Are you a school, hotel, NGO, Kidepo safari lodge, or bulk grain trader from Kotido, Moroto, Kitgum, or Juba looking to purchase produce in Karenga? Post your exact requirement below so local farmers can supply you directly.
+          </p>
+          <button onclick="openModal('post-request-modal')" class="bg-white text-amber-900 font-bold px-4 py-2.5 rounded-xl text-sm hover:bg-amber-50 shadow transition flex items-center gap-2">
+            <i class="fa-solid fa-file-signature"></i> Post a Buyer Purchase Order
+          </button>
+        </div>
+      </div>
+
+      <!-- Buyer Requests Grid -->
+      <div id="buyer-requests-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <!-- Rendered dynamically -->
+      </div>
+
+    </section>
+
+
+    <!-- ========================================== -->
+    <!-- TAB 3: KARENGA WEEKLY PRICE INDEX (UGX) -->
+    <!-- ========================================== -->
+    <section id="tab-price-bulletin" class="tab-content hidden space-y-6">
+      
+      <div class="bg-white rounded-2xl border border-stone-200 p-6 sm:p-8 shadow-sm">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-stone-200 pb-5">
+          <div>
+            <div class="inline-flex items-center gap-2 bg-emerald-100 text-emerald-800 text-xs px-2.5 py-1 rounded-full font-semibold mb-2">
+              <i class="fa-solid fa-scale-balanced"></i> Fair Market Transparency
+            </div>
+            <h2 class="text-2xl font-black text-stone-900">Karenga Prevailing Market Price Bulletin</h2>
+            <p class="text-xs sm:text-sm text-stone-500">Benchmark prices across Karenga Town Council, Kapedo, and regional trader markets.</p>
+          </div>
+          <div class="text-left sm:text-right">
+            <span class="text-xs font-semibold text-stone-500 block">Current Status</span>
+            <span class="text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 inline-block">
+              Updated This Week (UGX)
+            </span>
+          </div>
+        </div>
+
+        <!-- Table of benchmark prices -->
+        <div class="overflow-x-auto mt-6">
+          <table class="w-full text-left border-collapse text-sm">
+            <thead>
+              <tr class="bg-stone-100 text-stone-700 uppercase text-xs font-bold border-y border-stone-200">
+                <th class="py-3 px-4">Commodity / Produce</th>
+                <th class="py-3 px-4">Unit of Measure</th>
+                <th class="py-3 px-4">Farmgate Price (Average)</th>
+                <th class="py-3 px-4">Karenga Town Center</th>
+                <th class="py-3 px-4">Market Trend</th>
+              </tr>
+            </thead>
+            <tbody id="price-bulletin-tbody" class="divide-y divide-stone-200 text-stone-800">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Farmer Warning Notice -->
+        <div class="mt-6 bg-amber-50 border border-amber-200 rounded-xl p-4 flex items-start gap-3 text-xs sm:text-sm text-amber-900">
+          <i class="fa-solid fa-triangle-exclamation text-amber-600 text-base mt-0.5"></i>
+          <div>
+            <strong>Advice for Karenga Farmers:</strong> Do not accept prices far below the farmgate benchmark shown above. Middlemen frequently underpay during harvest peaks. Group your bags with neighboring farmers in your parish to negotiate better bulk deals!
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- ========================================== -->
+    <!-- TAB 4: ABOUT & DISTRICT INFORMATION -->
+    <!-- ========================================== -->
+    <section id="tab-about" class="tab-content hidden space-y-6">
+      
+      <div class="bg-white rounded-2xl border border-stone-200 p-6 sm:p-8 shadow-sm space-y-6">
+        <div>
+          <span class="bg-emerald-100 text-emerald-800 text-xs px-2.5 py-1 rounded-full font-bold uppercase tracking-wider">About This Initiative</span>
+          <h2 class="text-2xl sm:text-3xl font-black text-stone-900 mt-2">Solving the Market Access Bottleneck in Karenga</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-stone-600 leading-relaxed">
+          <div class="space-y-4">
+            <h3 class="font-bold text-stone-800 text-base flex items-center gap-2">
+              <i class="fa-solid fa-map-pin text-emerald-700"></i> The Challenge in Karenga District
+            </h3>
+            <p>
+              Located in the northern tip of Karamoja bordering South Sudan and Kitgum, Karenga has fertile agricultural belts (such as Kapedo, Lokori, and Lobalangit) producing rich yields of sorghum, finger millet, simsim, groundnuts, and famous organic bush honey.
+            </p>
+            <p>
+              However, farmers routinely face severe challenges:
+            </p>
+            <ul class="list-disc pl-5 space-y-1.5">
+              <li>Lack of direct buyer contacts, making farmers dependent on itinerant middlemen who buy at exploitative prices.</li>
+              <li>Post-harvest losses caused by prolonged storage while searching for buyers.</li>
+              <li>Difficulty for external bulk buyers (lodges in Kidepo, schools, grain aggregators in Kotido or Kampala) to locate where surplus produce is stored.</li>
+            </ul>
+          </div>
+
+          <div class="space-y-4">
+            <h3 class="font-bold text-stone-800 text-base flex items-center gap-2">
+              <i class="fa-solid fa-lightbulb text-amber-600"></i> How Karenga AgriMarket Solves It
+            </h3>
+            <p>
+              This platform serves as a lightweight, zero-barrier virtual market square that works on any basic smartphone, tablet, or computer:
+            </p>
+            <ul class="list-disc pl-5 space-y-1.5">
+              <li><strong>Zero Intermediary Fees:</strong> Buyers dial farmers directly on MTN / Airtel or click to chat on WhatsApp.</li>
+              <li><strong>Offline Persistence:</strong> Listings are saved locally on the device and can be shared over SMS or WhatsApp groups.</li>
+              <li><strong>Sub-county Geotargeting:</strong> Buyers know exactly which village or trading center in Karenga to collect the produce.</li>
+              <li><strong>Fair Price Transparency:</strong> The weekly price bulletin helps farmers know their true crop value.</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Extension worker / Cooperative Section -->
+        <div class="bg-stone-50 border border-stone-200 rounded-xl p-5 space-y-3">
+          <h4 class="font-bold text-stone-800 text-sm sm:text-base flex items-center gap-2">
+            <i class="fa-solid fa-users-gear text-emerald-700"></i> Role of Community Extension Workers & Parish Chiefs
+          </h4>
+          <p class="text-xs sm:text-sm text-stone-600">
+            For farmers without smartphones or digital literacy, village agricultural extension officers, parish chiefs, youth champions, and cooperative leaders can act as digital aggregators—listing produce on their behalf and receiving calls from bulk purchasers.
+          </p>
+          <div class="flex flex-wrap gap-2 pt-2">
+            <button onclick="exportDataToCSV()" class="bg-emerald-800 hover:bg-emerald-700 text-white text-xs font-semibold px-3.5 py-2 rounded-lg flex items-center gap-2">
+              <i class="fa-solid fa-file-csv"></i> Download Listings Report (CSV/Excel)
+            </button>
+            <button onclick="openModal('post-produce-modal')" class="bg-amber-500 hover:bg-amber-400 text-emerald-950 text-xs font-bold px-3.5 py-2 rounded-lg flex items-center gap-2">
+              <i class="fa-solid fa-plus"></i> Register a Farmer Group Listing
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <!-- ========================================== -->
+  <!-- MODAL 1: POST PRODUCE (FARMER SELLING) -->
+  <!-- ========================================== -->
+  <div id="post-produce-modal" class="fixed inset-0 bg-stone-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-5 my-8 relative animate-in">
+      
+      <!-- Close Button -->
+      <button onclick="closeModal('post-produce-modal')" class="absolute top-4 right-4 text-stone-400 hover:text-stone-700 p-2 text-lg">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div>
+        <div class="inline-flex items-center gap-1.5 bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-0.5 rounded-full mb-1">
+          <i class="fa-solid fa-tractor"></i> Farmer / Producer Listing
+        </div>
+        <h3 class="text-xl font-black text-stone-900">List Your Produce for Sale</h3>
+        <p class="text-xs text-stone-500">Connect with potential buyers searching for harvest in Karenga.</p>
+      </div>
+
+      <form id="form-post-produce" onsubmit="handlePostProduce(event)" class="space-y-4">
+        
+        <!-- Farmer / Cooperative Name -->
+        <div>
+          <label class="block text-xs font-bold text-stone-700 mb-1">Farmer / Group / Contact Person Name *</label>
+          <input type="text" id="p-farmer-name" required placeholder="e.g. Lokwang Peter or Kapedo Women Group" class="w-full text-sm px-3.5 py-2 border border-stone-300 rounded-lg focus:ring-2 focus:ring-emerald-600 focus:outline-none" />
+        </div>
+
+        <!-- Phone, WhatsApp, Facebook -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-stone-700 mb-1">
+              <i class="fa-solid fa-phone text-emerald-700 mr-1"></i> Phone (MTN/Airtel) *
+            </label>
+            <input type="tel" id="p-phone" required placeholder="0772 123 456" class="w-full text-sm px-3.5 py-2 border border-stone-300 rounded-lg focus:ring-2 focus:ring-emerald-600 focus:outline-none" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-stone-700 mb-1">
+              <i class="fa-brands fa-whatsapp text-emerald-600 mr-1"></i> WhatsApp Number
+            </label>
+            <input type="tel" id="p-whatsapp" placeholder="e.g. 0785123490" class="w-full text-sm px-3.5 py-2 border border-stone-300 rounded-lg focus:ring-2 focus:ring-emerald-600 focus:outline-none" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-stone-700 mb-1">
+              <i class="fa-brands fa-facebook text-blue-600 mr-1"></i> Facebook Account / Page
+            </label>
+            <input type="text" id="p-facebook" placeholder="e.g. facebook.com/profile" class="w-full text-sm px-3.5 py-2 border border-stone-300 rounded-lg focus:ring-2 focus:ring-emerald-600 focus:outline-none" />
+          </div>
+        </div>
+
+        <!-- Location in Karenga -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-stone-700 mb-1">Sub-county *</label>
+            <select id="p-subcounty" required class="w-full text-sm px-3 py-2 border border-stone-300 rounded-lg focus:ring-2 focus:ring-emerald-600 focus:outline-none bg-white">
+              <option value="Karenga Town Council">Karenga Town Council</option>
+              <option value="Kapedo Sub-county">Kapedo Sub-county</option>
+              <option value="Lobalangit Sub-county">Lobalangit Sub-county</option>
+              <option value="Lokori Sub-county">Lokori Sub-county</option>
+              <option value="Kawalakol Sub-county">Kawalakol Sub-county</option>
+              <option value="Sangar Sub-county">Sangar Sub-county</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-stone-700 mb-1">Parish / Village / Trading Center *</label>
+            <input type="text" id="p-village" required placeholder="e.g. Lobalangit Center or Kapedo Boma" class="w-full text-sm px-3.5 py-2 border border-stone-300 rounded-lg focus:ring-2 focus:ring-emerald-600 focus:outline-none" />
+          </div>
+        </div>
+
+        <!-- Category & Produce Name -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-stone-700 mb-1">Produce Category *</label>
+            <select id="p-category" required class="w-full text-sm px-3 py-2 border border-stone-300 rounded-lg focus:ring-2 focus:ring-emerald-600 focus:outline-none bg-white">
+              <option value="Cereals & Grains">Cereals & Grains (Sorghum, Millet, Maize)</option>
+              <option value="Legumes & Oilseeds">Legumes & Oilseeds (Simsim, G-Nuts, Beans)</option>
+              <option value="Honey & Natural">Honey & Natural Products</option>
+              <option value="Livestock & Poultry">Livestock & Poultry</option>
+              <option value="Tubers & Vegetables">Tubers & Vegetables</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-stone-700 mb-1">Produce Specific Name *</label>
+            <input type="text" id="p-produce-name" required placeholder="e.g. Red Sorghum (Serena) or Clean Simsim" class="w-full text-sm px-3.5 py-2 border border-stone-300 rounded-lg focus:ring-2 focus:ring-emerald-600 focus:outline-none" />
+          </div>
+        </div>
+
+        <!-- Quantity & Price in UGX -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-stone-700 mb-1">Available Quantity *</label>
+            <input type="number" id="p-quantity" required min="1" placeholder="e.g. 50" class="w-full text-sm px-3.5 py-2 border border-stone-300 rounded-lg focus:ring-2 focus:ring-emerald-600 focus:outline-none" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-stone-700 mb-1">Unit of Measure *</label>
+            <select id="p-unit" required class="w-full text-sm px-3 py-2 border border-stone-300 rounded-lg focus:ring-2 focus:ring-emerald-600 focus:outline-none bg-white">
+              <option value="100kg Bag">100kg Bag</option>
+              <option value="50kg Bag">50kg Bag</option>
+              <option value="Kilogram (kg)">Kilogram (kg)</option>
+              <option value="20-Litre Jerrican">20L Jerrican (Honey)</option>
+              <option value="Head of Livestock">Head of Livestock (Animal)</option>
+              <option value="Basin">Basin</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-stone-700 mb-1">Price per Unit (UGX) *</label>
+            <input type="number" id="p-price" required min="100" placeholder="e.g. 180000" class="w-full text-sm px-3.5 py-2 border border-stone-300 rounded-lg focus:ring-2 focus:ring-emerald-600 focus:outline-none" />
+          </div>
+        </div>
+
+        <!-- Quality / Description Note -->
+        <div>
+          <label class="block text-xs font-bold text-stone-700 mb-1">Condition & Details (Optional)</label>
+          <textarea id="p-notes" rows="2" placeholder="e.g. Sun-dried, well threshed, packed in new clean sacks, ready for pickup at farmgate or trading center." class="w-full text-sm px-3.5 py-2 border border-stone-300 rounded-lg focus:ring-2 focus:ring-emerald-600 focus:outline-none"></textarea>
+        </div>
+
+        <div class="pt-2 flex items-center justify-end gap-3">
+          <button type="button" onclick="closeModal('post-produce-modal')" class="px-4 py-2 border border-stone-300 rounded-lg text-xs font-semibold text-stone-600 hover:bg-stone-100">
+            Cancel
+          </button>
+          <button type="submit" class="bg-emerald-800 hover:bg-emerald-900 text-white font-bold px-5 py-2 rounded-lg text-xs shadow-md flex items-center gap-2">
+            <i class="fa-solid fa-cloud-arrow-up"></i> Publish Listing Now
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+
+  <!-- ========================================== -->
+  <!-- MODAL 2: POST BUYER REQUEST (DEMAND) -->
+  <!-- ========================================== -->
+  <div id="post-request-modal" class="fixed inset-0 bg-stone-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-5 my-8 relative animate-in">
+      
+      <button onclick="closeModal('post-request-modal')" class="absolute top-4 right-4 text-stone-400 hover:text-stone-700 p-2 text-lg">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div>
+        <div class="inline-flex items-center gap-1.5 bg-amber-100 text-amber-900 text-xs font-bold px-2.5 py-0.5 rounded-full mb-1">
+          <i class="fa-solid fa-cart-flatbed"></i> Commercial Buyer / Institutional Request
+        </div>
+        <h3 class="text-xl font-black text-stone-900">Post What You Want to Buy</h3>
+        <p class="text-xs text-stone-500">Farmers in Karenga will see your order and reach out immediately.</p>
+      </div>
+
+      <form id="form-post-request" onsubmit="handlePostRequest(event)" class="space-y-4">
+        
+        <div>
+          <label class="block text-xs font-bold text-stone-700 mb-1">Buyer / Institution Name *</label>
+          <input type="text" id="r-buyer-name" required placeholder="e.g. Kidepo Safari Lodge, Kotido Grain Millers, or James Opio" class="w-full text-sm px-3.5 py-2 border border-stone-300 rounded-lg focus:ring-2 focus:ring-emerald-600 focus:outline-none" />
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-stone-700 mb-1">
+              <i class="fa-solid fa-phone text-amber-700 mr-1"></i> Contact Phone *
+            </label>
+            <input type="tel" id="r-phone" required placeholder="e.g. 0772123456" class="w-full text-sm px-3.5 py-2 border border-stone-300 rounded-lg focus:ring-2 focus:ring-emerald-600 focus:outline-none" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-stone-700 mb-1">
+              <i class="fa-brands fa-whatsapp text-emerald-600 mr-1"></i> WhatsApp (Optional)
+            </label>
+            <input type="tel" id="r-whatsapp" placeholder="e.g. 0782334455" class="w-full text-sm px-3.5 py-2 border border-stone-300 rounded-lg focus:ring-2 focus:ring-emerald-600 focus:outline-none" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-stone-700 mb-1">
+              <i class="fa-brands fa-facebook text-blue-600 mr-1"></i> Facebook (Optional)
+            </label>
+            <input type="text" id="r-facebook" placeholder="e.g. facebook.com/buyer" class="w-full text-sm px-3.5 py-2 border border-stone-300 rounded-lg focus:ring-2 focus:ring-emerald-600 focus:outline-none" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-stone-700 mb-1">Buyer Location / Base *</label>
+          <input type="text" id="r-location" required placeholder="e.g. Karenga TC, Kotido, Kitgum, or Kampala" class="w-full text-sm px-3.5 py-2 border border-stone-300 rounded-lg focus:ring-2 focus:ring-emerald-600 focus:outline-none" />
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-stone-700 mb-1">Produce Desired *</label>
+            <input type="text" id="r-produce-name" required placeholder="e.g. 40 Bags of Simsim, 20 Karamoja Goats" class="w-full text-sm px-3.5 py-2 border border-stone-300 rounded-lg focus:ring-2 focus:ring-emerald-600 focus:outline-none" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-stone-700 mb-1">Target Budget / Buying Price (UGX)</label>
+            <input type="text" id="r-budget" placeholder="e.g. 4,500 UGX/kg or 150,000 UGX/goat" class="w-full text-sm px-3.5 py-2 border border-stone-300 rounded-lg focus:ring-2 focus:ring-emerald-600 focus:outline-none" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-stone-700 mb-1">Specific Requirements & Terms</label>
+          <textarea id="r-notes" rows="2" placeholder="e.g. Ready cash on delivery. Need delivery to Karenga Trading Center or we can send our truck to Kapedo farmgate." class="w-full text-sm px-3.5 py-2 border border-stone-300 rounded-lg focus:ring-2 focus:ring-emerald-600 focus:outline-none"></textarea>
+        </div>
+
+        <div class="pt-2 flex items-center justify-end gap-3">
+          <button type="button" onclick="closeModal('post-request-modal')" class="px-4 py-2 border border-stone-300 rounded-lg text-xs font-semibold text-stone-600 hover:bg-stone-100">
+            Cancel
+          </button>
+          <button type="submit" class="bg-amber-600 hover:bg-amber-700 text-white font-bold px-5 py-2 rounded-lg text-xs shadow-md flex items-center gap-2">
+            <i class="fa-solid fa-bullhorn"></i> Post Demand Request
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+
+  <!-- ========================================== -->
+  <!-- MODAL 3: CONTACT / PURCHASE INQUIRY MODAL -->
+  <!-- ========================================== -->
+  <div id="contact-modal" class="fixed inset-0 bg-stone-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4 relative animate-in">
+      <button onclick="closeModal('contact-modal')" class="absolute top-4 right-4 text-stone-400 hover:text-stone-700 p-2 text-lg">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="text-center space-y-1">
+        <div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center text-xl mx-auto mb-2">
+          <i class="fa-solid fa-handshake"></i>
+        </div>
+        <h3 class="text-lg font-black text-stone-900" id="c-produce-title">Contact Farmer</h3>
+        <p class="text-xs text-stone-500" id="c-farmer-details">Farmer in Karenga District</p>
+      </div>
+
+      <div class="bg-stone-50 rounded-xl p-4 border border-stone-200 text-xs space-y-2">
+        <div class="flex justify-between">
+          <span class="text-stone-500">Unit Price:</span>
+          <span class="font-bold text-stone-900" id="c-price-tag">0 UGX</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-stone-500">Available Stock:</span>
+          <span class="font-bold text-stone-900" id="c-stock-tag">0 Units</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-stone-500">Pickup Location:</span>
+          <span class="font-semibold text-emerald-800" id="c-location-tag">Karenga</span>
+        </div>
+      </div>
+
+      <!-- Quick Action Buttons -->
+      <div class="space-y-2 pt-2">
+        <a id="btn-call-farmer" href="tel:" class="w-full btn-call font-bold py-2.5 px-4 rounded-xl text-xs sm:text-sm flex items-center justify-center gap-2 shadow transition">
+          <i class="fa-solid fa-phone"></i> <span>Call Farmer Directly Now</span>
+        </a>
+        <a id="btn-whatsapp-farmer" target="_blank" href="#" class="w-full btn-whatsapp font-bold py-2.5 px-4 rounded-xl text-xs sm:text-sm flex items-center justify-center gap-2 shadow transition">
+          <i class="fa-brands fa-whatsapp text-base"></i> <span>Chat & Negotiate on WhatsApp</span>
+        </a>
+        <a id="btn-facebook-farmer" target="_blank" href="#" class="w-full btn-facebook font-bold py-2.5 px-4 rounded-xl text-xs sm:text-sm flex items-center justify-center gap-2 shadow transition">
+          <i class="fa-brands fa-facebook text-base"></i> <span>Farmer Facebook Profile / Page</span>
+        </a>
+        <div class="grid grid-cols-2 gap-2">
+          <a id="btn-sms-farmer" href="sms:" class="bg-stone-100 hover:bg-stone-200 text-stone-800 font-semibold py-2 px-3 rounded-xl text-xs flex items-center justify-center gap-1.5 transition border border-stone-300">
+            <i class="fa-solid fa-comment-sms"></i> Send SMS
+          </a>
+          <button id="btn-modal-view-barcode" onclick="" class="bg-stone-800 hover:bg-stone-900 text-amber-300 font-bold py-2 px-3 rounded-xl text-xs flex items-center justify-center gap-1.5 shadow transition">
+            <i class="fa-solid fa-barcode text-sm"></i> Bag Barcode Tag
+          </button>
+        </div>
+      </div>
+
+      <!-- Social Share Strip -->
+      <div class="pt-3 border-t border-stone-200 flex items-center justify-between text-xs text-stone-500">
+        <span class="font-medium">Share this listing:</span>
+        <div class="flex items-center gap-2">
+          <button id="btn-modal-share-wa" onclick="" class="px-2.5 py-1.5 rounded-lg bg-emerald-50 text-emerald-800 font-semibold hover:bg-emerald-100 border border-emerald-200 flex items-center gap-1 transition">
+            <i class="fa-brands fa-whatsapp text-emerald-600 text-sm"></i> WhatsApp
+          </button>
+          <button id="btn-modal-share-fb" onclick="" class="px-2.5 py-1.5 rounded-lg bg-blue-50 text-blue-800 font-semibold hover:bg-blue-100 border border-blue-200 flex items-center gap-1 transition">
+            <i class="fa-brands fa-facebook text-blue-600 text-sm"></i> Facebook
+          </button>
+        </div>
+      </div>
+
+      <p class="text-[11px] text-stone-400 text-center">
+        Zero middleman fees. Direct connection with producers in Karenga.
+      </p>
+    </div>
+  </div>
+
+
+  <!-- ========================================== -->
+  <!-- MODAL 4: PRODUCE BATCH BARCODE & BAG TAG -->
+  <!-- ========================================== -->
+  <div id="barcode-modal" class="fixed inset-0 bg-stone-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4 my-8 relative animate-in">
+      <button onclick="closeModal('barcode-modal')" class="absolute top-4 right-4 text-stone-400 hover:text-stone-700 p-2 text-lg">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="flex items-center gap-2">
+        <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-0.5 rounded-full">
+          <i class="fa-solid fa-barcode"></i> Produce Passport & Bag Tag
+        </span>
+        <span class="text-xs text-stone-500">Karenga Traceability System</span>
+      </div>
+
+      <!-- Printable Bag Tag Section -->
+      <div id="printable-bag-tag" class="produce-bag-tag p-5 space-y-4 bg-stone-50/60">
+        <div class="flex items-center justify-between border-b border-stone-200 pb-3">
+          <div class="flex items-center gap-2.5">
+            <div class="w-9 h-9 rounded-xl bg-amber-500 text-emerald-950 flex items-center justify-center font-black text-base shadow-sm">
+              <i class="fa-solid fa-wheat-awn"></i>
+            </div>
+            <div>
+              <div class="text-xs font-black text-emerald-950 tracking-tight">KARENGA AGRIMARKET</div>
+              <div class="text-[10px] text-stone-500 font-semibold">Official District Produce Traceability Tag</div>
+            </div>
+          </div>
+          <span class="text-xs font-mono font-black bg-white px-2.5 py-1 rounded-md border border-stone-300 text-stone-900" id="tag-batch-id">KRG-CR-001</span>
+        </div>
+
+        <div>
+          <h3 class="text-xl font-black text-stone-900" id="tag-produce-name">Red Sorghum (Cleaned)</h3>
+          <div class="text-xs text-stone-600 font-medium mt-1" id="tag-farmer-info">
+            Kapedo Women Grain Producers Group • Kapedo Sub-county
+          </div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-2 bg-white p-3 rounded-xl border border-stone-200 text-center text-xs">
+          <div>
+            <div class="text-[10px] text-stone-500 font-medium">Available Quantity</div>
+            <div class="font-black text-stone-900 mt-0.5" id="tag-quantity">120 Bags</div>
+          </div>
+          <div>
+            <div class="text-[10px] text-stone-500 font-medium">Unit Price</div>
+            <div class="font-black text-emerald-700 mt-0.5" id="tag-price">175,000 UGX</div>
+          </div>
+          <div>
+            <div class="text-[10px] text-stone-500 font-medium">Harvest Date</div>
+            <div class="font-black text-stone-800 mt-0.5" id="tag-date">2026-10-01</div>
+          </div>
+        </div>
+
+        <!-- Scannable Barcode (Code-128) -->
+        <div class="bg-white p-4 rounded-xl border border-stone-200 space-y-2 text-center">
+          <div class="text-[11px] font-bold text-stone-600 uppercase tracking-wider">
+            <i class="fa-solid fa-barcode mr-1"></i> Scannable Bag Barcode (Code-128)
+          </div>
+          <div class="flex justify-center overflow-x-auto py-1">
+            <svg id="barcode-svg" class="mx-auto"></svg>
+          </div>
+        </div>
+
+        <!-- Scannable QR Code & Contact Links -->
+        <div class="bg-white p-4 rounded-xl border border-stone-200 flex flex-col sm:flex-row items-center justify-around gap-4 text-center sm:text-left">
+          <div id="qrcode-container" class="flex justify-center flex-shrink-0"></div>
+          <div class="text-xs space-y-1.5">
+            <div class="font-bold text-stone-900">Instant Mobile Scan & Connect:</div>
+            <div class="text-stone-500 text-[11px] leading-relaxed">
+              Scan with any mobile camera to immediately call the farmer, chat on WhatsApp, or view verification details.
+            </div>
+            <div id="tag-contact-badges" class="flex flex-wrap items-center gap-1.5 pt-1">
+              <!-- Filled dynamically by JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Tag Footer -->
+        <div class="text-[10px] text-stone-400 flex items-center justify-between border-t border-stone-200 pt-2 font-mono">
+          <span>Karenga District Local Government</span>
+          <span>Verified Local Agricultural Produce</span>
+        </div>
+      </div>
+
+      <!-- Action Buttons for the Tag -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2">
+        <button onclick="printProduceTag()" class="bg-emerald-800 hover:bg-emerald-900 text-white font-bold py-2.5 px-3 rounded-xl text-xs flex items-center justify-center gap-1.5 shadow transition">
+          <i class="fa-solid fa-print"></i> Print Tag
+        </button>
+        <button id="btn-tag-share-wa" onclick="shareCurrentTagWhatsApp()" class="btn-whatsapp py-2.5 px-3 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 shadow transition">
+          <i class="fa-brands fa-whatsapp text-sm"></i> WhatsApp
+        </button>
+        <button id="btn-tag-share-fb" onclick="shareCurrentTagFacebook()" class="btn-facebook py-2.5 px-3 rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 shadow transition">
+          <i class="fa-brands fa-facebook text-sm"></i> Facebook
+        </button>
+        <button onclick="closeModal('barcode-modal')" class="bg-stone-100 hover:bg-stone-200 text-stone-700 font-semibold py-2.5 px-3 rounded-xl text-xs flex items-center justify-center transition border border-stone-300">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ========================================== -->
+  <!-- MODAL 5: LIVE BARCODE & QR CODE SCANNER -->
+  <!-- ========================================== -->
+  <div id="scan-modal" class="fixed inset-0 bg-stone-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4 my-8 relative animate-in">
+      <button onclick="closeScanModal()" class="absolute top-4 right-4 text-stone-400 hover:text-stone-700 p-2 text-lg">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="text-center space-y-1">
+        <div class="w-12 h-12 rounded-full bg-emerald-100 text-emerald-800 flex items-center justify-center text-xl mx-auto mb-1">
+          <i class="fa-solid fa-barcode"></i>
+        </div>
+        <h3 class="text-lg font-black text-stone-900">Scan Produce Bag Tag</h3>
+        <p class="text-xs text-stone-500">Scan Barcode or QR Code to verify batch & reach farmer</p>
+      </div>
+
+      <!-- Scanner Preview Container -->
+      <div id="qr-reader" class="rounded-xl overflow-hidden border-2 border-emerald-700 bg-stone-900 min-h-[200px] flex items-center justify-center text-stone-400 text-xs p-2">
+        <span class="text-stone-300 text-center px-4">
+          <i class="fa-solid fa-camera text-2xl mb-2 block text-emerald-400"></i>
+          Point camera at the produce barcode or QR code on the bag
+        </span>
+      </div>
+
+      <div class="flex items-center justify-center gap-2">
+        <button id="btn-toggle-camera" onclick="toggleCameraScanner()" class="bg-emerald-800 hover:bg-emerald-900 text-white font-bold py-2 px-4 rounded-xl text-xs flex items-center gap-2 shadow transition">
+          <i class="fa-solid fa-video"></i> Start Camera Scan
+        </button>
+        <label class="cursor-pointer bg-stone-100 hover:bg-stone-200 text-stone-800 font-semibold py-2 px-3 rounded-xl text-xs flex items-center gap-1.5 transition border border-stone-300">
+          <i class="fa-solid fa-image"></i> Photo Upload
+          <input type="file" id="scan-file-input" accept="image/*" class="hidden" onchange="handleScanImageUpload(event)" />
+        </label>
+      </div>
+
+      <!-- Manual Code Input Fallback -->
+      <div class="pt-3 border-t border-stone-200 space-y-2">
+        <label class="block text-xs font-bold text-stone-700">Or Type Produce Batch Code:</label>
+        <div class="flex gap-2">
+          <input type="text" id="manual-scan-input" placeholder="e.g. KRG-CR-001 or KRG-OS-002" class="flex-1 text-xs px-3 py-2 border border-stone-300 rounded-xl focus:ring-2 focus:ring-emerald-600 uppercase font-mono" />
+          <button onclick="handleManualScanLookup()" class="bg-emerald-700 hover:bg-emerald-800 text-white px-4 py-2 rounded-xl text-xs font-bold transition">
+            Lookup
+          </button>
+        </div>
+      </div>
+
+      <div id="scan-result-feedback" class="text-xs text-center font-medium hidden p-2.5 rounded-xl"></div>
+    </div>
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL 6: INSTANT MATCH & PROMPT ALERT MODAL -->
+  <!-- ========================================== -->
+  <div id="match-alert-modal" class="fixed inset-0 bg-stone-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4 my-8 relative animate-in border-2 border-emerald-500">
+      
+      <button onclick="closeModal('match-alert-modal')" class="absolute top-4 right-4 text-stone-400 hover:text-stone-700 p-2 text-lg">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="flex items-center gap-2">
+        <span class="bg-amber-100 text-amber-900 text-xs font-black px-2.5 py-1 rounded-full flex items-center gap-1.5 shadow-sm">
+          <i class="fa-solid fa-bolt text-amber-600 animate-bounce"></i> PROMPT MARKET MATCH FOUND
+        </span>
+        <span class="text-xs text-emerald-800 font-bold" id="match-modal-type">New Listing Alert</span>
+      </div>
+
+      <div class="space-y-1">
+        <h3 class="text-xl font-black text-stone-900" id="match-modal-title">Buyers Are Waiting For This Harvest!</h3>
+        <p class="text-xs text-stone-600" id="match-modal-subtitle">
+          Your produce matches commercial buyer demand currently logged in Karenga District.
+        </p>
+      </div>
+
+      <!-- Match Target Card Details -->
+      <div id="match-modal-content" class="bg-stone-50 rounded-xl p-4 border border-stone-200 text-xs space-y-3">
+        <!-- Dynamically populated via JS -->
+      </div>
+
+      <!-- Quick Action Buttons -->
+      <div class="space-y-2 pt-1" id="match-modal-actions">
+        <!-- Injected via JS (WhatsApp Direct Alert, Call Now, etc.) -->
+      </div>
+
+      <!-- Automated SMS/WhatsApp Gateway Status -->
+      <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-3 flex items-start gap-2.5 text-xs text-emerald-900">
+        <i class="fa-solid fa-satellite-dish text-emerald-700 mt-0.5 text-sm"></i>
+        <div>
+          <div class="font-bold">Automated SMS & WhatsApp Dispatch Gateway Active</div>
+          <div class="text-[11px] text-emerald-800 mt-0.5" id="match-gateway-status">
+            Notification queued for Karenga District bulk buyer network and local grain millers.
+          </div>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-end gap-2 pt-1">
+        <button onclick="closeModal('match-alert-modal')" class="w-full bg-stone-100 hover:bg-stone-200 text-stone-800 font-bold py-2 px-4 rounded-xl text-xs transition border border-stone-300">
+          Got It / Continue Browsing
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ========================================== -->
+  <!-- MODAL 7: LIVE MARKET ALERTS & DISPATCH SIMULATOR -->
+  <!-- ========================================== -->
+  <div id="alert-center-modal" class="fixed inset-0 bg-stone-900/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-white rounded-2xl max-w-4xl w-full p-6 shadow-2xl space-y-5 my-8 relative animate-in max-h-[90vh] flex flex-col justify-between">
+      
+      <!-- Modal Header -->
+      <div class="flex items-start justify-between border-b border-stone-200 pb-3">
+        <div>
+          <div class="inline-flex items-center gap-1.5 bg-emerald-100 text-emerald-800 text-xs font-bold px-2.5 py-0.5 rounded-full mb-1">
+            <i class="fa-solid fa-tower-broadcast"></i> Live Dispatch Engine & Simulation Center
+          </div>
+          <h3 class="text-xl font-black text-stone-900">Karenga Automated Alert Simulator</h3>
+          <p class="text-xs text-stone-500">
+            Simulate how buyers and farmers receive prompt instant WhatsApp and SMS alerts when crops arrive in Karenga stores.
+          </p>
+        </div>
+        <button onclick="closeModal('alert-center-modal')" class="text-stone-400 hover:text-stone-700 p-2 text-lg">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- Simulation Action Buttons Bar -->
+      <div class="bg-stone-50 border border-stone-200 rounded-xl p-3.5 space-y-2">
+        <div class="text-xs font-bold text-stone-700 flex items-center justify-between">
+          <span><i class="fa-solid fa-play text-amber-600 mr-1"></i> Trigger Instant Market Dispatch Simulations:</span>
+          <span class="text-[11px] text-stone-500">Test live prompt alerts</span>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+          <button onclick="simulateHarvestArrival()" class="bg-emerald-800 hover:bg-emerald-900 text-white font-bold py-2 px-3 rounded-lg text-xs flex items-center justify-center gap-1.5 shadow transition">
+            <i class="fa-solid fa-tractor"></i> 1. Seller Harvest Arrival
+          </button>
+          <button onclick="simulateBuyerRequest()" class="bg-amber-600 hover:bg-amber-700 text-white font-bold py-2 px-3 rounded-lg text-xs flex items-center justify-center gap-1.5 shadow transition">
+            <i class="fa-solid fa-cart-shopping"></i> 2. Buyer Demand Order
+          </button>
+          <button onclick="simulateEmergencyOrder()" class="bg-stone-800 hover:bg-stone-900 text-amber-300 font-bold py-2 px-3 rounded-lg text-xs flex items-center justify-center gap-1.5 shadow transition">
+            <i class="fa-solid fa-truck-fast"></i> 3. Kidepo Safari Urgent Order
+          </button>
+        </div>
+      </div>
+
+      <!-- Dual Column Layout: Live Feed vs Simulated Phone Receiver -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 overflow-y-auto py-1">
+        
+        <!-- Left: Live Activity Log Stream -->
+        <div class="lg:col-span-6 space-y-3">
+          <div class="flex items-center justify-between">
+            <h4 class="text-xs font-bold text-stone-800 uppercase tracking-wider flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span> Live Dispatch Log
+            </h4>
+            <button onclick="clearAlertFeed()" class="text-[11px] text-stone-400 hover:text-stone-600">Clear</button>
+          </div>
+          
+          <div id="simulation-feed" class="space-y-2 max-h-[300px] overflow-y-auto pr-1 text-xs">
+            <!-- Simulated feed items will appear here -->
+          </div>
+        </div>
+
+        <!-- Right: Simulated Smartphone Screen Showing Real WhatsApp & SMS Texts -->
+        <div class="lg:col-span-6 flex flex-col items-center">
+          <div class="w-full max-w-sm simulated-phone text-white p-3 space-y-3">
+            
+            <!-- Phone Top Status Bar -->
+            <div class="flex justify-between items-center text-[10px] text-stone-400 px-2 pt-1 font-mono">
+              <span>MTN-UG / Airtel 4G</span>
+              <span id="phone-clock">21:18</span>
+              <span>100% 🔋</span>
+            </div>
+
+            <!-- WhatsApp Header -->
+            <div class="bg-emerald-950 p-2.5 rounded-xl border border-emerald-900 flex items-center gap-2">
+              <div class="w-7 h-7 rounded-full bg-[#25D366] text-white flex items-center justify-center text-xs">
+                <i class="fa-brands fa-whatsapp"></i>
+              </div>
+              <div class="truncate">
+                <div class="text-xs font-bold text-white truncate">Karenga AgriMarket Alert Gateway</div>
+                <div class="text-[10px] text-emerald-300">Official WhatsApp Dispatch Bot</div>
+              </div>
+            </div>
+
+            <!-- WhatsApp Chat Body with Message Bubbles -->
+            <div class="bg-[#0b141a] p-3 rounded-xl min-h-[170px] space-y-2.5 text-xs flex flex-col justify-end">
+              <!-- Live Simulated Text Bubble -->
+              <div class="flex justify-end">
+                <div class="wa-bubble text-stone-900 text-xs space-y-1 font-sans" id="simulated-wa-bubble">
+                  <div class="font-bold text-emerald-900 text-[11px]">🌾 KARENGA HARVEST ALERT</div>
+                  <div class="text-xs text-stone-800 leading-relaxed" id="simulated-wa-text">
+                    *🚨 NEW HARVEST IN KARENGA!*<br>
+                    *Crop:* White Simsim (50kg Bag)<br>
+                    *Farmer:* Lokwang Peter (Lobalangit)<br>
+                    *Quantity:* 45 Bags @ 260,000 UGX<br>
+                    *Direct Phone:* 0785123490<br>
+                    *Batch Tag:* KRG-OS-002<br>
+                    _Tap to contact farmer directly!_
+                  </div>
+                  <div class="text-[9px] text-stone-500 text-right font-mono">Just now • ✔✔</div>
+                </div>
+              </div>
+
+              <!-- SMS Push Notification Banner -->
+              <div class="sms-bubble text-xs space-y-0.5" id="simulated-sms-bubble">
+                <div class="flex items-center justify-between text-[10px] text-stone-500 font-semibold">
+                  <span><i class="fa-solid fa-comment-sms text-emerald-600 mr-1"></i> SMS from +256772849102</span>
+                  <span>Now</span>
+                </div>
+                <div class="text-stone-800 text-[11px]" id="simulated-sms-text">
+                  Karenga AgriMarket: Batch KRG-CR-001 (120 Bags Red Sorghum) arrived in Kapedo. Call farmer 0772849102.
+                </div>
+              </div>
+            </div>
+
+            <!-- Real WhatsApp Test Trigger -->
+            <div class="bg-stone-900 p-2.5 rounded-xl border border-stone-800 text-xs space-y-2">
+              <div class="text-[11px] text-stone-300 font-semibold flex items-center gap-1">
+                <i class="fa-brands fa-whatsapp text-emerald-400"></i> Test on your actual phone WhatsApp:
+              </div>
+              <div class="flex gap-1.5">
+                <input type="tel" id="test-wa-phone" placeholder="e.g. 0772123456" class="flex-1 text-xs px-2.5 py-1.5 rounded-lg bg-stone-800 text-white border border-stone-700 focus:outline-none focus:border-emerald-500" />
+                <button onclick="sendRealTestWhatsApp()" class="btn-whatsapp px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1">
+                  <i class="fa-solid fa-paper-plane text-[10px]"></i> Send
+                </button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="border-t border-stone-200 pt-3 flex items-center justify-between text-xs text-stone-500">
+        <span class="flex items-center gap-1">
+          <i class="fa-solid fa-shield-halved text-emerald-700"></i> 100% Free Carrier & Internet Gateway Simulation
+        </span>
+        <button onclick="closeModal('alert-center-modal')" class="bg-stone-800 hover:bg-stone-900 text-white font-bold py-1.5 px-4 rounded-xl transition">
+          Close
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toast-container" class="fixed top-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- FOOTER -->
+  <footer class="bg-emerald-950 text-emerald-200 py-10 border-t border-emerald-900 mt-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6 text-sm">
+        
+        <!-- District Hub -->
+        <div class="md:col-span-2 space-y-3 text-center sm:text-left">
+          <div class="text-lg font-bold text-white flex items-center justify-center sm:justify-start gap-2">
+            <i class="fa-solid fa-wheat-awn text-amber-400"></i> Karenga AgriMarket Platform
+          </div>
+          <p class="text-xs text-emerald-300 leading-relaxed max-w-md">
+            Direct farmer-to-buyer agricultural marketplace linking growers in Kapedo, Lobalangit, Lokori, Kawalakol, Sangar, and Karenga Town Council with bulk buyers, institutions, and wholesale aggregators across Uganda and South Sudan.
+          </p>
+          <div class="flex flex-wrap items-center justify-center sm:justify-start gap-2 pt-1 text-xs">
+            <span class="bg-emerald-900/80 px-2.5 py-1 rounded-full border border-emerald-800 text-amber-300 font-semibold">
+              <i class="fa-solid fa-certificate text-emerald-400"></i> 100% Zero Broker Fees
+            </span>
+            <span class="bg-emerald-900/80 px-2.5 py-1 rounded-full border border-emerald-800 text-emerald-200 font-semibold">
+              <i class="fa-solid fa-barcode text-amber-300"></i> Barcode Traceable
+            </span>
+          </div>
+        </div>
+
+        <!-- Direct Connect Channels -->
+        <div class="space-y-2.5 text-center sm:text-left">
+          <h5 class="text-xs font-bold text-amber-400 uppercase tracking-wider">Direct Connect</h5>
+          <ul class="text-xs space-y-2 text-emerald-300">
+            <li>
+              <a href="tel:0772849102" class="hover:text-white flex items-center justify-center sm:justify-start gap-2 font-semibold">
+                <i class="fa-solid fa-phone text-emerald-400"></i> Helpline: 0772 849 102
+              </a>
+            </li>
+            <li>
+              <a href="https://wa.me/256772849102?text=Hello%20Karenga%20AgriMarket%2C%20I%20am%20a%20farmer%2Fbuyer%20seeking%20assistance." target="_blank" class="hover:text-white flex items-center justify-center sm:justify-start gap-2 font-semibold">
+                <i class="fa-brands fa-whatsapp text-emerald-400 text-sm"></i> WhatsApp Community Hub
+              </a>
+            </li>
+            <li>
+              <a href="https://facebook.com" target="_blank" class="hover:text-white flex items-center justify-center sm:justify-start gap-2 font-semibold">
+                <i class="fa-brands fa-facebook text-blue-400 text-sm"></i> Facebook Agricultural Group
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Quick Access -->
+        <div class="space-y-2.5 text-center sm:text-left">
+          <h5 class="text-xs font-bold text-amber-400 uppercase tracking-wider">Traceability & Tools</h5>
+          <ul class="text-xs space-y-2 text-emerald-300">
+            <li>
+              <button onclick="openScanModal()" class="hover:text-white flex items-center justify-center sm:justify-start gap-2">
+                <i class="fa-solid fa-barcode text-amber-300"></i> Scan Bag Barcode Tag
+              </button>
+            </li>
+            <li>
+              <button onclick="openModal('post-produce-modal')" class="hover:text-white flex items-center justify-center sm:justify-start gap-2">
+                <i class="fa-solid fa-plus-circle text-amber-400"></i> List Harvest for Sale
+              </button>
+            </li>
+            <li>
+              <button onclick="exportDataToCSV()" class="hover:text-white flex items-center justify-center sm:justify-start gap-2">
+                <i class="fa-solid fa-file-csv text-emerald-400"></i> Export Price & Produce CSV
+              </button>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="border-t border-emerald-900/80 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left text-xs text-emerald-400/80">
+        <div>
+          Karenga District, Karamoja Sub-region, Uganda • Free Open Community Agricultural Initiative
+        </div>
+        <div class="flex items-center gap-3">
+          <a href="tel:0772849102" class="hover:underline flex items-center gap-1"><i class="fa-solid fa-phone"></i> Call Support</a>
+          <span>•</span>
+          <a href="https://wa.me/256772849102" target="_blank" class="hover:underline flex items-center gap-1"><i class="fa-brands fa-whatsapp"></i> WhatsApp</a>
+          <span>•</span>
+          <a href="https://facebook.com" target="_blank" class="hover:underline flex items-center gap-1"><i class="fa-brands fa-facebook"></i> Facebook</a>
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- App Javascript -->
+  <script src="app.js"></script>
+</body>
+</html>
